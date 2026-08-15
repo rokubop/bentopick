@@ -26,7 +26,9 @@ packaging commands are all Windows-native. Work from pwsh, not WSL.
 - Repo: `R:\dev\flick`
 - Toolchain: Rust `stable-x86_64-pc-windows-msvc` (1.89.0), already installed
 - Target: **Windows 11 only** (dev machine is Win11 Pro 22631 / 23H2)
-- Status: **Milestone 1 done** (dry run). Next step is Milestone 2, activation.
+- Status: **Milestones 1 and 2 done.** Activation works. Taskbar pins, sections,
+  and the general parsing-name target model landed with M2. Next: Milestone 3,
+  capture previews.
 
 ## Stack
 
@@ -80,7 +82,12 @@ enumerating *real* windows; a sandbox has nothing to enumerate.
   something else on this machine.
 - Grid: fixed tile size, panel grows from center, caps at 80% of the work area,
   scrolls past that.
+- Sections stack with text headers, configured in `flick.toml`.
+- Pins and running windows are shown separately, never merged. See `DESIGN.md`.
 
 ## Open questions for the user
 
-- Whether tabs and windows share one grid section or are separated (Milestone 4).
+- Tabs and bookmarks arrive with the extension (Milestone 4); whether they get
+  their own sections or merge into existing ones is still open.
+- Drag-and-drop pinning (Milestone 5) needs a decision on where dropped items
+  land when several manual sections exist.
