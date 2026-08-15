@@ -26,8 +26,7 @@ packaging commands are all Windows-native. Work from pwsh, not WSL.
 - Repo: `R:\dev\flick`
 - Toolchain: Rust `stable-x86_64-pc-windows-msvc` (1.89.0), already installed
 - Target: **Windows 11 only** (dev machine is Win11 Pro 22631 / 23H2)
-- Status at handoff: design complete, **no code written yet**. Next step is
-  Milestone 1.
+- Status: **Milestone 1 done** (dry run). Next step is Milestone 2, activation.
 
 ## Stack
 
@@ -75,9 +74,13 @@ cargo build
 Do not use Windows Sandbox or a VM for testing — see `DESIGN.md`. The app's job is
 enumerating *real* windows; a sandbox has nothing to enumerate.
 
+## Settled
+
+- Hotkey: `alt+``. `ctrl+alt+space` was picked first but is already registered by
+  something else on this machine.
+- Grid: fixed tile size, panel grows from center, caps at 80% of the work area,
+  scrolls past that.
+
 ## Open questions for the user
 
-- Hotkey binding not yet chosen.
-- Whether tabs and windows share one grid section or are separated.
-- Tile size defaults, and how the grid reflows past ~50 items (fixed columns vs
-  fit-to-screen).
+- Whether tabs and windows share one grid section or are separated (Milestone 4).
