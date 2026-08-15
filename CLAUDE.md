@@ -10,6 +10,9 @@ and rejected. Read it in full before proposing anything. Do not re-litigate the
 rejected options (DWM thumbnails, `PrintWindow`, C#/WPF, Tauri/Electron, a Rust
 GUI framework, `WH_KEYBOARD_LL`) without genuinely new information.
 
+**`STATUS.md`** says where the build stands, what is verified, and what is next.
+Read it before starting work.
+
 ## What this is
 
 **flick** — a centered, hotkey-summoned grid of everything worth switching to on
@@ -39,11 +42,13 @@ full rationale.
 
 ## Build order
 
-Milestone 1 is **dry run**: enumerate everything, render the grid with icons, but
-every click is a no-op that logs what it *would* have activated. Dry-run mode is
-ON by default. This validates reading the system before any code acts on it.
+Milestones 1 and 2 are done. See `STATUS.md` for where things stand and what is
+next; `DESIGN.md` has the full milestone list and the reasoning.
 
-Milestones 2–5: activation → capture/previews → browser extension → drag-to-pin.
+`dry_run` was ON through Milestone 1 and defaults OFF since Milestone 2. It stays
+in config as a debugging switch: clicks log what they would do and do nothing.
+
+Remaining: capture previews → browser extension → edit mode and drag-to-pin.
 
 ## Safety rules — non-negotiable
 
@@ -55,7 +60,9 @@ suggestions:
 2. **Portable single exe.** Config beside the binary, cache in
    `%LOCALAPPDATA%\flick`. No installer, no scattered state.
 3. **Read-only toward everything else.** Never write to a browser profile or
-   another app's data. Only writes are flick's own config and cache.
+   another app's data. Only writes are flick's own config and cache. flick does
+   write `flick.toml` now (tray pickers add pins); that goes through `toml_edit`
+   so hand-written comments and formatting survive.
 4. **No `WH_KEYBOARD_LL`.** Use `RegisterHotKey` — process-scoped and released by
    the OS even on crash.
 5. **Never block the UI thread on a shell call.** `IShellItemImageFactory` and
