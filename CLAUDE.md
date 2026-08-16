@@ -29,9 +29,13 @@ packaging commands are all Windows-native. Work from pwsh, not WSL.
 - Repo: `R:\dev\flick`
 - Toolchain: Rust `stable-x86_64-pc-windows-msvc` (1.89.0), already installed
 - Target: **Windows 11 only** (dev machine is Win11 Pro 22631 / 23H2)
-- Status: **Milestones 1 and 2 done.** Activation works. Taskbar pins, sections,
-  and the general parsing-name target model landed with M2. Next: Milestone 3,
-  capture previews.
+- Status: **Milestones 1, 2 and 5 done.** Activation works. Taskbar pins,
+  sections, and the general parsing-name target model landed with M2.
+  Drag-to-reorder, the right-click menu, unpinning and `IDropTarget` landed with
+  M5, ahead of order. Next: Milestone 3, capture previews.
+- **There is no edit mode.** One was built and removed the same session — see
+  DESIGN.md, "Edit mode: built, then removed". Do not reintroduce a mode without
+  new information; a drag threshold plus a context menu is the settled answer.
 
 ## Stack
 
@@ -42,13 +46,13 @@ full rationale.
 
 ## Build order
 
-Milestones 1 and 2 are done. See `STATUS.md` for where things stand and what is
-next; `DESIGN.md` has the full milestone list and the reasoning.
+Milestones 1, 2 and 5 are done. See `STATUS.md` for where things stand and what
+is next; `DESIGN.md` has the full milestone list and the reasoning.
 
 `dry_run` was ON through Milestone 1 and defaults OFF since Milestone 2. It stays
 in config as a debugging switch: clicks log what they would do and do nothing.
 
-Remaining: capture previews → browser extension → edit mode and drag-to-pin.
+Remaining: capture previews → browser extension.
 
 ## Safety rules — non-negotiable
 
@@ -96,5 +100,3 @@ enumerating *real* windows; a sandbox has nothing to enumerate.
 
 - Tabs and bookmarks arrive with the extension (Milestone 4); whether they get
   their own sections or merge into existing ones is still open.
-- Drag-and-drop pinning (Milestone 5) needs a decision on where dropped items
-  land when several manual sections exist.
