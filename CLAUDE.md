@@ -104,7 +104,10 @@ enumerating *real* windows; a sandbox has nothing to enumerate.
   something else on this machine.
 - Grid: fixed tile size, panel grows from center, caps at 80% of the work area,
   scrolls past that.
-- Sections stack with text headers, configured in `dashpick.toml`.
+- Sections stack with text headers, configured in `dashpick.toml`. A section
+  takes a list of sources; the default is two, `["windows", "tabs"]` over
+  `["taskbar", "manual"]`. A header plus a whole row per section was most of the
+  panel on a quiet machine. Split them back out with `match`.
 - Pins and running windows are shown separately, never merged. See `DESIGN.md`.
 - Filtering hides, it never reorders, and the panel's width is frozen while a
   query is live. Both are about keeping tile positions stable — the same rule
@@ -112,5 +115,6 @@ enumerating *real* windows; a sandbox has nothing to enumerate.
 
 ## Open questions for the user
 
-- Tabs and bookmarks arrive with the extension (Milestone 4); whether they get
-  their own sections or merge into existing ones is still open.
+- Bookmarks arrive with the extension (Milestone 4); whether they get their own
+  section or merge into an existing one is still open. Tabs are settled: they
+  share the `Active` section with the windows.
