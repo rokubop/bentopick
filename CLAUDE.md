@@ -33,10 +33,9 @@ packaging commands are all Windows-native. Work from pwsh, not WSL.
   Taskbar pins, sections, and the general parsing-name target model landed with
   M2. Drag-to-reorder, the right-click menu, unpinning and `IDropTarget` landed
   with M5, ahead of order. Typing filters the grid, and arrows plus Enter came
-  with it. Milestone 4 is part done: browser tabs arrive over a loopback
-  WebSocket from an MV3 extension in `extension/`, and clicking one switches to
-  it. Bookmarks and favicons are not built, and it has never run against real
-  Chrome. Next: those three.
+  with it. Milestone 4 is part done: browser tabs and favicons arrive over a
+  loopback WebSocket from the MV3 extension in `extension/`, and clicking a tab
+  switches to it. Verified in real Chrome. Bookmarks are not built.
 - **There is no edit mode.** One was built and removed the same session. See
   DESIGN.md, "Edit mode: built, then removed". Do not reintroduce a mode without
   new information; a drag threshold plus a context menu is the settled answer.
@@ -58,8 +57,7 @@ is next; `DESIGN.md` has the full milestone list and the reasoning.
 `dry_run` was ON through Milestone 1 and defaults OFF since Milestone 2. It stays
 in config as a debugging switch: clicks log what they would do and do nothing.
 
-Remaining: finish the extension (bookmarks, favicons, a real Chrome run) →
-capture previews. Type-to-filter was pulled ahead of both, because 40 tabs would
+Remaining: bookmarks over the same channel → capture previews. Type-to-filter was pulled ahead of both, because 40 tabs would
 flood the grid without it.
 
 ## Safety rules — non-negotiable
