@@ -33,7 +33,10 @@ packaging commands are all Windows-native. Work from pwsh, not WSL.
   Taskbar pins, sections, and the general parsing-name target model landed with
   M2. Drag-to-reorder, the right-click menu, unpinning and `IDropTarget` landed
   with M5, ahead of order. Typing filters the grid, and arrows plus Enter came
-  with it. Next: Milestone 4, browser tabs and bookmarks.
+  with it. Milestone 4 is part done: browser tabs arrive over a loopback
+  WebSocket from an MV3 extension in `extension/`, and clicking one switches to
+  it. Bookmarks and favicons are not built, and it has never run against real
+  Chrome. Next: those three.
 - **There is no edit mode.** One was built and removed the same session. See
   DESIGN.md, "Edit mode: built, then removed". Do not reintroduce a mode without
   new information; a drag threshold plus a context menu is the settled answer.
@@ -55,8 +58,9 @@ is next; `DESIGN.md` has the full milestone list and the reasoning.
 `dry_run` was ON through Milestone 1 and defaults OFF since Milestone 2. It stays
 in config as a debugging switch: clicks log what they would do and do nothing.
 
-Remaining: browser extension → capture previews. Type-to-filter was pulled ahead
-of both, because 40 tabs would flood the grid without it.
+Remaining: finish the extension (bookmarks, favicons, a real Chrome run) →
+capture previews. Type-to-filter was pulled ahead of both, because 40 tabs would
+flood the grid without it.
 
 ## Safety rules — non-negotiable
 
@@ -67,15 +71,20 @@ suggestions:
    privileged operation.
 2. **Portable single exe.** Config beside the binary, cache in
    `%LOCALAPPDATA%\flick`. No installer, no scattered state.
-3. **Read-only toward everything else.** Never write to a browser profile or
+3. **The browser socket is off by default and fails closed.** Loopback only, and
+   it refuses every connection unless the `Origin` is allowlisted *and* the
+   token matches. The origin check is what stops a web page enumerating open
+   tabs; the token is what stops a local process. Never weaken either, never
+   ship a default allowlist. See `DESIGN.md`, "Who is allowed on the socket".
+4. **Read-only toward everything else.** Never write to a browser profile or
    another app's data. Only writes are flick's own config and cache. flick does
    write `flick.toml` now (tray pickers add pins); that goes through `toml_edit`
    so hand-written comments and formatting survive.
-4. **No `WH_KEYBOARD_LL`.** Use `RegisterHotKey` — process-scoped and released by
+5. **No `WH_KEYBOARD_LL`.** Use `RegisterHotKey` — process-scoped and released by
    the OS even on crash.
-5. **Never block the UI thread on a shell call.** `IShellItemImageFactory` and
+6. **Never block the UI thread on a shell call.** `IShellItemImageFactory` and
    `SHGetFileInfo` can block for seconds. Workers with timeouts, always.
-6. **Panic hook + watchdog** that destroy/hide the window. An invisible topmost
+7. **Panic hook + watchdog** that destroy/hide the window. An invisible topmost
    window swallowing clicks is the failure mode that feels like a broken PC.
 
 Total persistent system footprint must stay limited to the four reversible items
