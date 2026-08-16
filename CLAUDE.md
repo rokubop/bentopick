@@ -33,9 +33,11 @@ packaging commands are all Windows-native. Work from pwsh, not WSL.
   sections, and the general parsing-name target model landed with M2.
   Drag-to-reorder, the right-click menu, unpinning and `IDropTarget` landed with
   M5, ahead of order. Next: Milestone 3, capture previews.
-- **There is no edit mode.** One was built and removed the same session — see
+- **There is no edit mode.** One was built and removed the same session. See
   DESIGN.md, "Edit mode: built, then removed". Do not reintroduce a mode without
   new information; a drag threshold plus a context menu is the settled answer.
+- **The pushpin and drop-to-pin are slated for removal.** Roku's call. Read the
+  first two steps in `STATUS.md` before touching either.
 
 ## Stack
 
@@ -100,3 +102,4 @@ enumerating *real* windows; a sandbox has nothing to enumerate.
 
 - Tabs and bookmarks arrive with the extension (Milestone 4); whether they get
   their own sections or merge into existing ones is still open.
+- Type-to-filter comes before tabs. 40 tabs would flood a 60-tile grid.
