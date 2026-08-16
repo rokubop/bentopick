@@ -29,10 +29,11 @@ packaging commands are all Windows-native. Work from pwsh, not WSL.
 - Repo: `R:\dev\flick`
 - Toolchain: Rust `stable-x86_64-pc-windows-msvc` (1.89.0), already installed
 - Target: **Windows 11 only** (dev machine is Win11 Pro 22631 / 23H2)
-- Status: **Milestones 1, 2 and 5 done.** Activation works. Taskbar pins,
-  sections, and the general parsing-name target model landed with M2.
-  Drag-to-reorder, the right-click menu, unpinning and `IDropTarget` landed with
-  M5, ahead of order. Next: Milestone 3, capture previews.
+- Status: **Milestones 1, 2 and 5 done, plus type-to-filter.** Activation works.
+  Taskbar pins, sections, and the general parsing-name target model landed with
+  M2. Drag-to-reorder, the right-click menu, unpinning and `IDropTarget` landed
+  with M5, ahead of order. Typing filters the grid, and arrows plus Enter came
+  with it. Next: Milestone 4, browser tabs and bookmarks.
 - **There is no edit mode.** One was built and removed the same session. See
   DESIGN.md, "Edit mode: built, then removed". Do not reintroduce a mode without
   new information; a drag threshold plus a context menu is the settled answer.
@@ -54,7 +55,8 @@ is next; `DESIGN.md` has the full milestone list and the reasoning.
 `dry_run` was ON through Milestone 1 and defaults OFF since Milestone 2. It stays
 in config as a debugging switch: clicks log what they would do and do nothing.
 
-Remaining: capture previews → browser extension.
+Remaining: browser extension → capture previews. Type-to-filter was pulled ahead
+of both, because 40 tabs would flood the grid without it.
 
 ## Safety rules — non-negotiable
 
@@ -97,9 +99,11 @@ enumerating *real* windows; a sandbox has nothing to enumerate.
   scrolls past that.
 - Sections stack with text headers, configured in `flick.toml`.
 - Pins and running windows are shown separately, never merged. See `DESIGN.md`.
+- Filtering hides, it never reorders, and the panel's width is frozen while a
+  query is live. Both are about keeping tile positions stable — the same rule
+  that fixed the tile size. See `DESIGN.md`, "Type-to-filter".
 
 ## Open questions for the user
 
 - Tabs and bookmarks arrive with the extension (Milestone 4); whether they get
   their own sections or merge into existing ones is still open.
-- Type-to-filter comes before tabs. 40 tabs would flood a 60-tile grid.
