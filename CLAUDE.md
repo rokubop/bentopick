@@ -105,11 +105,13 @@ enumerating *real* windows; a sandbox has nothing to enumerate.
 - Grid: fixed tile size, panel grows from center, caps at 80% of the work area,
   scrolls past that.
 - Sections stack with text headers, configured in `dashpick.toml`. A section
-  takes a list of *groups*; the default is two sections, four groups. A header
+  takes a list of *groups*; the default is three sections, six groups. A header
   plus a whole row per section was most of the panel on a quiet machine.
 - A group keeps its order, its `match` and a banded tile fill — everything a
-  section had except the header and the row break. Browser windows and tabs lead
-  `Active`, adjacent. The bare catch-all group must stay last.
+  section had except the header and the row break.
+- Browser windows and tabs get a header of their own, `Browsing`, at the top of
+  the panel. The bare catch-all group must stay last of all the windows groups,
+  across sections — it claims whatever the filtered ones did not.
 - Pins and running windows are shown separately, never merged. See `DESIGN.md`.
 - Filtering hides, it never reorders, and the panel's width is frozen while a
   query is live. Both are about keeping tile positions stable — the same rule
@@ -118,5 +120,5 @@ enumerating *real* windows; a sandbox has nothing to enumerate.
 ## Open questions for the user
 
 - Bookmarks arrive with the extension (Milestone 4); whether they get their own
-  section or merge into an existing one is still open. Tabs are settled: they
-  share the `Active` section with the windows.
+  section or become a third group in `Browsing` is still open. Tabs are settled:
+  `Browsing`, behind the browser windows.
