@@ -39,8 +39,9 @@ packaging commands are all Windows-native. Work from pwsh, not WSL.
 - **There is no edit mode.** One was built and removed the same session. See
   DESIGN.md, "Edit mode: built, then removed". Do not reintroduce a mode without
   new information; a drag threshold plus a context menu is the settled answer.
-- **The pushpin and drop-to-pin are slated for removal.** Roku's call. Read the
-  first two steps in `STATUS.md` before touching either.
+- **The pushpin and drop-to-pin are gone.** Keep-open served Explorer drops and
+  nothing else, so both came out. Adding is covered by right-click "Pin this
+  app", the tray pickers, and hand-editing. Do not reintroduce either.
 
 ## Stack
 
