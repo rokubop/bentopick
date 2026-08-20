@@ -15,7 +15,7 @@ Read it before starting work.
 
 ## What this is
 
-**DashPick** — a centered, hotkey-summoned grid of everything worth switching to on
+**BentoPick** — a centered, hotkey-summoned grid of everything worth switching to on
 this PC: running windows, pinned apps, pinned Explorer folders, browser tabs,
 pinned bookmarks. Uniform, configurable tile size, scaling to 50+ items. Click to
 launch or focus.
@@ -26,7 +26,7 @@ This project was designed in a prior session running under WSL, and deliberately
 handed off to **PowerShell** because the toolchain, the GUI process, and the
 packaging commands are all Windows-native. Work from pwsh, not WSL.
 
-- Repo: `R:\dev\dashpick`
+- Repo: `R:\dev\bentopick`
 - Toolchain: Rust `stable-x86_64-pc-windows-msvc` (1.89.0), already installed
 - Target: **Windows 11 only** (dev machine is Win11 Pro 22631 / 23H2)
 - Status: **Milestones 1, 2 and 5 done, plus type-to-filter.** Activation works.
@@ -68,15 +68,15 @@ suggestions:
 1. **Never request elevation.** Manifest `asInvoker`, always. The app needs no
    privileged operation.
 2. **Portable single exe.** Config beside the binary, cache in
-   `%LOCALAPPDATA%\dashpick`. No installer, no scattered state.
+   `%LOCALAPPDATA%\bentopick`. No installer, no scattered state.
 3. **The browser socket is off by default and fails closed.** Loopback only, and
    it refuses every connection unless the `Origin` is allowlisted *and* the
    token matches. The origin check is what stops a web page enumerating open
    tabs; the token is what stops a local process. Never weaken either, never
    ship a default allowlist. See `DESIGN.md`, "Who is allowed on the socket".
 4. **Read-only toward everything else.** Never write to a browser profile or
-   another app's data. Only writes are DashPick's own config and cache. DashPick does
-   write `dashpick.toml` now (tray pickers add pins); that goes through `toml_edit`
+   another app's data. Only writes are BentoPick's own config and cache. BentoPick does
+   write `bentopick.toml` now (tray pickers add pins); that goes through `toml_edit`
    so hand-written comments and formatting survive.
 5. **No `WH_KEYBOARD_LL`.** Use `RegisterHotKey` — process-scoped and released by
    the OS even on crash.
@@ -91,7 +91,7 @@ listed in `DESIGN.md`. Anything that would add a fifth needs the user's sign-off
 ## Building
 
 ```powershell
-cd R:\dev\dashpick
+cd R:\dev\bentopick
 cargo build
 ```
 
@@ -104,7 +104,7 @@ enumerating *real* windows; a sandbox has nothing to enumerate.
   something else on this machine.
 - Grid: fixed tile size, panel grows from center, caps at 80% of the work area,
   scrolls past that.
-- Sections stack with text headers, configured in `dashpick.toml`. A section
+- Sections stack with text headers, configured in `bentopick.toml`. A section
   takes a list of *groups*; the default is three sections, six groups. A header
   plus a whole row per section was most of the panel on a quiet machine.
 - A group keeps its order, its `match` and a banded tile fill — everything a
